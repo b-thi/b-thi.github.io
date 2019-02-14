@@ -151,7 +151,7 @@ a:visited {
     background-color: #222;
 }
 .icon-bar.inverted {
-    background-color: #fff;
+    background-color: #000;
 }
 @media (max-width: 992px) {
     .icon-bar.inverted {
@@ -195,7 +195,7 @@ a:visited {
 }
 .item-anchor:hover,
 .item-anchor:focus {
-    color: #ffffff;
+    color: #000000;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -ms-transition: all 1s ease;
@@ -233,7 +233,7 @@ a:visited {
 }
 .animated:hover .icon-bar,
 .animated:focus .icon-bar {
-    background-color: #fff;
+    background-color: #000;
 }
 .animated:focus {
     cursor: pointer;
@@ -363,7 +363,7 @@ a:visited {
 .navbar-toggle {
     border: medium none;
     border-radius: 0;
-    color: #fff;
+    color: #000;
     cursor: pointer;
     height: 50px;
     padding: 16px;
@@ -374,12 +374,12 @@ a:visited {
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #fff;
+    background-color: #000;
 }
 .navbar-default .navbar-toggle,
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-    border-color: #fff;
+    border-color: #000;
 }
 .navbar-toggle span {
     width: 25px;
