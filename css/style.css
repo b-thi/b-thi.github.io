@@ -151,15 +151,15 @@ a:visited {
     background-color: #222;
 }
 .icon-bar.inverted {
-    background-color: #fff;
+    background-color: #000000;
 }
 @media (max-width: 992px) {
     .icon-bar.inverted {
-        background-color: #222;
+        background-color: #000000;
     }
 }
 .opaque {
-    background-color: #fff!important;
+    background-color: #000000!important;
 }
 .btn-nav:hover .icon-bar {
     -webkit-transition: all 1s ease;
