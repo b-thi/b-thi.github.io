@@ -68,7 +68,7 @@ html{-webkit-box-sizing:border-box;box-sizing:border-box}*,:after,:before{-webki
         margin-right: auto;
         text-align: left;
         vertical-align: top;
-        width: 40%;
+        width: 50%;
 
 
       }
@@ -173,49 +173,122 @@ MathJax.Hub.Config({
 
 
            
-
-           
+    		<p style="font-size:30px;color:blue">
+    			Introduction
+    			<p/>
+               
+   
+  
 
             <p>
-                Imagine you have an object and you decide to throw this object at some angle, upwards; the object will travel through the air and fall back down somewhere else. If you were interested in the behaviour of that object as it moves through the air, you would consider collecting data on space and time i.e. you might wonder: <br/>
+                Let's begin by looking at the plot below; what can we observe about it? <br/>
              </p>
-                 
-            <h3 align='center'> "How high is the object 2 seconds after I throw it?"</h3>
+
+                          <div>
+                <center> <img src="images/thumbs/test3.gif"> </center>
+                <br/>
+            </div>
 
             <p>
-            	         and you could answer this question by simply measuring the height at 2 seconds (which may be easier said than done). You could repeat this process for whatever time that you wanted - which is nice but it could be laborious. What if there existed 
+            	         First, we can observe that there are 9 'subjects' color coded according to the legend on the right hand side. We also observe two dynamic components: the number of 'basis functions' (don't worry about what these are yet) and the shape of the actual curves; in fact, it looks like as the number of basis functions increases, so does the complexity of the curve (i.e. there are more wiggles).  <br/> <br/>
+
+            	         Pay close attention to when there is no indicator for basis functions on the $x$-axis - when this is the case, there are only individual points on the plot. This is what we will refer to as the 'discrete data'. This is the data you would expect to see if you just recorded information. For example, imagine you threw a ball into the air and measured its position throughout its trajectory; in other words, imagine at 1 second, you took a reading of how high it was. And then again, at 2 seconds. And so on. What you're doing is collecting data, discretely. <br/>
 
             	        </p>
 
-             <div>
-                <center> <img src="images/thumbs/test3.gif"> </center>
+            	                                 <div>
+                <center> <img src="images/fda_article/object.gif"> </center>
+                <span><center>An example of the movement of an object as it's thrown from the ground.</center></span>
                 <br/>
-                <span><center>Image source: </center></span>
             </div>
             
-            <p>Trandom random random random random random $3^2$</p>
+            <p>This way of viewing data is how we have traditionally seen it - it's standard. Now, think again of throwing the ball in the air and measuring its position: is that really the best way to measure the height of the ball across time? What if I asked you what the position of the ball was at 1.232847 seconds? You could probably make some kind of guess but you would certainly have trouble measuring what the true value is. Moreover, measuring data in this way is subject to error. The way you measure might not be perfect, are you just eye-balling it? using some kind of device? And these problems aren't just unique to this example - they are fundamentally a detriment to statistical analysis in general. <br/> <br/>
 
-            <p>Trandom random random random random random</p>
+            Luckily, this isn't the only lens from which we can view data. What if we knew about where this data arose from? What if we could approximate some substitute for the true function from which this data came? In the example with the ball, we know the underlying physics equations that govern the movement of the ball.
+             </p>
 
-                         <div>
-                <center> <img src="images/fda_article/object.gif"> </center>
-                <br/>
-                <span><center>Image source: </center></span>
-            </div>
 
-                         <div>
+           <div>
                 <center> <img src="images/fda_article/curve_object.gif"> </center>
+                <span><center>The movement of the same object as it moves through the air (in a vacuum). </center></span>
                 <br/>
-                <span><center>Image source: </center></span>
+                
             </div>
 
 
-            <p>Trandom random random random random random</p>
+
+            <p>Approximating these true equations is at the essence of functional data analysis (FDA). We first make an assumption that there exists some true underlying function from which the data arises - in our example, this is the equation: $h(t) = 16t^{2} + vt + h_{i}$ where $h(t)$ is the height at time $t$, $v$ is the initial velocity (how hard you threw the ball?), and $h_{i}$ is the initial height (e.g. were you standing on top of a building?). Here, we know this function, but often we don't - it's why we use statistics. If we could explain behaviours using hard science, there would be no need for us to collect and analyze data. This doesn't mean though that we can't still try and approximate the underlying function by some other approach. <br/><br/>
 
 
-            <p>Trandom random random random random random</p>
+            So here's the bottomline: we want to work with the curves rather than the discrete points. This is because they provide us with much more information. Remember when I asked you to tell me the position at 1.232847 seconds? You couldn't answer that then but using the equation given above, you could now. Working with curves will also give us access to derivatives - this is how much the data is changing at any given point in time. Here, this refers to the velocity! Accessing additional information such as this becomes much easier when we use the paradigm of data as curves rather than discrete points. In this article, I will provide an intuitive understanding of how to make these curves from the discrete data and what kind of problems we could solve with this information. 
+            </p>
 
-            <p>Trandom random random random random random</p>
+                		<p style="font-size:30px;color:blue">
+    			Basis Functions
+    			<p/>
+
+            <p>
+            	
+            	I mentioned basis functions earlier - what are they? Well, they're what we are going to use to build these curves. Basis functions are what are known as 'universal approximators' - i.e. they can act as substitutes for the true function because they do a pretty good job of giving us the values that the true function would give. In the projectile example, if we had an initial height $h_{i}$ of 0, and initial velocity $v$ of 100, then at 1 second, the height of the object would be 160 feet. What we want is an approximation that, when we plug in $t = 1$, gives us a value equal to 160! Again, the reason we want this approximation is because we usually don't know the true function (otherwise, we would just work with it instead). <br/><br/>
+
+            	Here's the definition of a 'basis expansion' $f(t)$ (a sum of $n$ basis functions):
+
+            </p>	
+
+            	
+
+            	                      <h5 align = "center">
+$f(t) = \sum_{i = 1}^{n} c_{i}\phi_{i}(t) = c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) \hspace{0.2cm}+ \hspace{0.4cm}...\hspace{0.4cm} +\hspace{0.2cm} c_{n}\phi_{n}(t)$
+
+            </h5>
+
+           	<p>
+
+           		Let's make sense of this. We have a sum and each term of that sum has two things: some value $c$, and some function $\phi(t)$. The latter are the 'basis functions' I been referring to thus far and the former are known as the coefficents. The basis functions we decide ourselves and the choice depends on the context. Some popular basis include the fourier and polynomial basis functions. If we used a polynomial basis expansion, then the sum changes to:
+
+           	<p/>
+
+
+
+                      <h5 align = "center">
+               $\begin{align*}
+    f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) \hspace{0.2cm}+ \hspace{0.4cm}...\hspace{0.4cm} +\hspace{0.2cm} c_{n}\phi_{n}(t)\\
+    &= c_{1}\cdot 1 + c_{2}\cdot t \hspace{0.2cm}+ \hspace{0.4cm}...\hspace{0.4cm} +\hspace{0.2cm} c_{n}\cdot t^{n}
+\end{align*}$
+
+            </h5>
+
+            <p> 
+
+            	That is, the polynomial functions are: {$1$, $t$, $t^2$, ..., $t^{n}$} and they just replaced the placeholders we had: $\phi(t)$. If you hearken back to the first plot where one of the changing values was the number of basis functions, that is what is $n$ here. The larger the value of $n$, the more basis functions there are (as part of the basis expansion), and the more complex our curve gets. This should make sense intuitively! If we just had $n = 1$, then our basis expansion will just be one term: $c_{1}$ which is just a number. We would be saying that $f(t) = c_{1}$ i.e. no matter where we evaluate the function, the value will be the same. When we have $n = 2$, we get $f(t) = c_{1} + c_{2}\cdot t$ - we have a slope and an intercept! We can continue adding terms to get more complex curves. The level of complexity we want will be based on the data we've collected and what we know of situation at hand. For example, in the situation with the projectile, we know that the true equation is quadratic ($t^2$) so, when we attempt to figure out its approximation as a basis expansion, we will see that a 3 term polynomial expansion suffices! <br/><br/>
+
+            	<p/>
+
+           <div>
+                <center> <img src="images/fda_article/basis_gif.gif"> </center>
+                <span><center>An example of how adding additional basis terms complicates the basis expansion. </center></span>
+                <br/>
+                
+            </div>
+
+            <p> 
+
+            	Okay, so we know how the basis expansion behaves when we add additional terms, but what about the values of $c$? Well, these coefficients are what we are going to use to get very specific curves - picking the correct combination of these is what is going to allow for those good approximations! This is where the raw discrete data comes in - using the information from that data, we can figure out what the values of $c$ should be. In this process, we want to make sure we don't overfit (remember, the data we collect is subject to random error); attempting to not do so is not an exact science. I won't go into the weeds with this but just know that there are good ways to figure out the optimal $c$ values based on the data you've collected! <br/><br/>
+
+            	<p/>
+
+    		<p style="font-size:30px;color:blue">
+    			Creating Functional Data
+    			<p/>
+
+    		    		<p style="font-size:30px;color:blue">
+    			Modelling
+    			<p/>
+
+    			    		<p style="font-size:30px;color:blue">
+    			Final Thoughts
+    			<p/>
+
 
         </article>
 
