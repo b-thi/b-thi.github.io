@@ -310,12 +310,19 @@ $f(t) = \sum_{i = 1}^{n} c_{i}\phi_{i}(t) = c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) 
     			<p/>
 
     		<p>
-    			We have now gone through the effort of making these curves but what can we do with them? 
+    			We have now gone through the effort of making these curves but what can we do with them? Let's first consider a problem: imagine you are interested in how much precipitation you would expect in some city over a year e.g. what is the total amount of rain/snow in Vancouver in 2013? You suspect that there there is some relationship between the temperature throughout a year and the total precipitation. The Canadian Weather data set contains information regarding both; there is the daily temperature readings for 35 Canadian cities along with the total precipitation in that year. <br/><br/>
+
+    			Traditionally, we might look to fit this using a least squares regression model - basically, we would use the daily temperature as a predictor but we run into an issue immediately: there are 365 predictors but only 35 cities! If you don't know why this is an issue, just believe me when I say regressing on that many predictors for that few observations is a bad idea. But, for fun, let's try it. We are going to build the model:
 
     			<p/>
 
+				                <center> <img src="images/fda_article/weather_obs.png"> </center>
+                <span><center>On the left is the raw data associated with three different subjects and on the <br/>right is the corresponding functional observations formed using basis expansions. </center></span>
+                <br/>
 
-    			<center><iframe src="images/fda_article/p1.html" style="height:400px;width:700px;border:none;"></iframe></center>
+				<center><iframe src="images/fda_article/beta.html" style="height:400px;width:700px;border:none;"></iframe></center>
+
+    			<center><iframe src="images/fda_article/lm_all.html" style="height:400px;width:700px;border:none;"></iframe></center>
 
                 <br/>
 
