@@ -181,7 +181,7 @@ MathJax.Hub.Config({
   
 
             <p>
-                Let's begin by looking at the plot below; what can we observe about it? <br/>
+                Let's begin by looking at the plot below; what can we observe about it? <br/><br/>
              </p>
 
                           <div>
@@ -190,9 +190,9 @@ MathJax.Hub.Config({
             </div>
 
             <p>
-            	         First, we can observe that there are 9 'subjects' color coded according to the legend on the right hand side. We also observe two dynamic components: the number of 'basis functions' (don't worry about what these are yet) and the shape of the actual curves; in fact, it looks like as the number of basis functions increases, so does the complexity of the curve (i.e. there are more wiggles).  <br/> <br/>
+            	         First, we can observe that there are 9 'subjects' color coded according to the legend on the right hand side for which we measure temperature across time. We also observe two dynamic components: the number of 'basis functions' (don't worry about what these are yet) and the shape of the actual curves; in fact, it looks like as the number of basis functions increases, so does the complexity of the curve (i.e. there are more wiggles).  <br/> <br/>
 
-            	         Pay close attention to when there is no indicator for basis functions on the $x$-axis - when this is the case, there are only individual points on the plot. This is what we will refer to as the 'discrete data'. This is the data you would expect to see if you just recorded information. For example, imagine you threw a ball into the air and measured its position throughout its trajectory; in other words, imagine at 1 second, you took a reading of how high it was. And then again, at 2 seconds. And so on. What you're doing is collecting data, discretely. <br/>
+            	         Pay close attention to when there is no indicator for basis functions on the $x$-axis - when this is the case, there are only individual points on the plot. This is what we will refer to as the 'discrete data'. This is the data you would expect to see if you just recorded information. For example, imagine you threw a ball into the air and measured its position throughout its trajectory; in other words, imagine at 1 second, you took a reading of how high it was. And then again, at 2 seconds. And so on. What you're doing is collecting data, discretely. <br/><br/>
 
             	        </p>
 
@@ -204,7 +204,7 @@ MathJax.Hub.Config({
             
             <p>This way of viewing data is how we have traditionally seen it - it's standard. Now, think again of throwing the ball in the air and measuring its position: is that really the best way to measure the height of the ball across time? What if I asked you what the position of the ball was at 1.232847 seconds? You could probably make some kind of guess but you would certainly have trouble measuring what the true value is. Moreover, measuring data in this way is subject to error. The way you measure might not be perfect, are you just eye-balling it? using some kind of device? And these problems aren't just unique to this example - they are fundamentally a detriment to statistical analysis in general. <br/> <br/>
 
-            Luckily, this isn't the only lens from which we can view data. What if we knew about where this data arose from? What if we could approximate some substitute for the true function from which this data came? In the example with the ball, we know the underlying physics equations that govern the movement of the ball.
+            Luckily, this isn't the only lens from which we can view data. What if we knew about where this data arose from? What if we could approximate some substitute for the true function from which this data came? In the example with the ball, we know the underlying physics equations that govern the movement of the ball. <br/><br/>
              </p>
 
 
@@ -281,9 +281,44 @@ $f(t) = \sum_{i = 1}^{n} c_{i}\phi_{i}(t) = c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) 
     			Creating Functional Data
     			<p/>
 
+
+
+    		<p>
+    			At this point, we already have all the tools we need to build functional data. We can just generalize a little bit to put everything together. Thus far, we have only considered the case when there was just one functional observation i.e. a ball is thrown in the air by just ONE person. What if 10 different people throw the ball? They all have varying levels of strength so the trajectory will be different. Furthermore, what if you gave people the option to throw it from different heights? Then in the equation earlier, we would find that $h_{i}$ and $v_{i}$ differs for each person. These are parameters that alter the trajectory! <br/> <br/>
+
+    			Let's refer back to the first plot - there, we had 9 subjects! You could think of these 9 subjects as 9 different people. We build a curve for each one of them (using basis expansions). As I alluded to earlier, the functions $\phi(t)$ within the basis expansions are set beforehand depending on the choice of basis (fourier, polynomial, etc.). These will remain constant across all your observations. What changes is the values of $c$ which depend on the raw data for a particular subject. <br/><br/>
+
+    			<p/>
+
+    			           <div>
+                <center> <img src="images/fda_article/fda.png"> </center>
+                <span><center>On the left is the raw data associated with three different subjects and on the <br/>right is the corresponding functional observations formed using basis expansions. </center></span>
+                <br/>
+
+    		<p>
+    			In the image above, the color codes for the three subjects. We can see that the raw data differs significantly between the three and this is reflected in the functional observations on the right; all three of them have the same basis functions (in this case, a fourier basis), but have different coefficient values $c$ which alters the curves significantly. <br/><br/>
+
+    			And that's about it - we now have functional observations. We can take derivatives of these observations easily by taking the derivatives of the basis functions $\phi(t)$. Note however, that this isn't the only way to get functional observations -- an alternative approach is to use functional principal components. I will omit the details because I plan on writing a detailed article on how those work, geometrically!<br/>
+
+    			<p/>
+
+
+            </div>
+
     		    		<p style="font-size:30px;color:blue">
     			Modelling
     			<p/>
+
+    		<p>
+    			We have now gone through the effort of making these curves but what can we do with them? 
+
+    			<p/>
+
+
+    			<center><iframe src="images/fda_article/p1.html" style="height:400px;width:700px;border:none;"></iframe></center>
+
+                <br/>
+
 
     			    		<p style="font-size:30px;color:blue">
     			Final Thoughts
