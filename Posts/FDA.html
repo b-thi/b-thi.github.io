@@ -295,6 +295,8 @@ $f(t) = \sum_{i = 1}^{n} c_{i}\phi_{i}(t) = c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) 
                 <span><center>On the left is the raw data associated with three different subjects and on the <br/>right is the corresponding functional observations formed using basis expansions. </center></span>
                 <br/>
 
+                </div>
+
     		<p>
     			In the image above, the color codes for the three subjects. We can see that the raw data differs significantly between the three and this is reflected in the functional observations on the right; all three of them have the same basis functions (in this case, a fourier basis), but have different coefficient values $c$ which alters the curves significantly. <br/><br/>
 
@@ -303,33 +305,137 @@ $f(t) = \sum_{i = 1}^{n} c_{i}\phi_{i}(t) = c_{1}\phi_{1}(t) + c_{2}\phi_{2}(t) 
     			<p/>
 
 
-            </div>
+            
 
     		    		<p style="font-size:30px;color:blue">
     			Modelling
     			<p/>
 
     		<p>
-    			We have now gone through the effort of making these curves but what can we do with them? Let's first consider a problem: imagine you are interested in how much precipitation you would expect in some city over a year e.g. what is the total amount of rain/snow in Vancouver in 2013? You suspect that there there is some relationship between the temperature throughout a year and the total precipitation. The Canadian Weather data set contains information regarding both; there is the daily temperature readings for 35 Canadian cities along with the total precipitation in that year. <br/><br/>
+    			We have now gone through the effort of making these curves but what can we do with them? Let's first consider a classic problem (Ramsay & Silverman, 2006): imagine you are interested in how much precipitation you would expect in some city over a year e.g. what is the total amount of rain/snow in Vancouver in 2013? You suspect that there is some relationship between the temperature throughout the year and the total precipitation. The Canadian Weather data set contains information regarding both; there is the daily temperature readings for 35 Canadian cities along with the total precipitation within that year. <br/><br/>
 
-    			Traditionally, we might look to fit this using a least squares regression model - basically, we would use the daily temperature as a predictor but we run into an issue immediately: there are 365 predictors but only 35 cities! If you don't know why this is an issue, just believe me when I say regressing on that many predictors for that few observations is a bad idea. But, for fun, let's try it. We are going to build the model:
 
     			<p/>
 
-				                <center> <img src="images/fda_article/weather_obs.png"> </center>
-                <span><center>On the left is the raw data associated with three different subjects and on the <br/>right is the corresponding functional observations formed using basis expansions. </center></span>
+    			   			<div>
+
+				                <center> <img src="images/fda_article/weather_obs.png" > </center>
+                <span><center>Examples of what functional observations of temperature for 5 cities might look like. </center></span>
                 <br/>
+
+                </div>
+
+
+    			<p>
+
+    			Traditionally, we might look to fit this using a least squares regression model - basically, we would use the daily temperature as a predictor but we run into an issue immediately: there are 365 predictors (one for each day of the year) but only 35 cities! If you don't know why this is an issue, just believe me when I say regressing on that many predictors for that few observations is a bad idea. But, for fun, let's try it. We are going to build the following model:
+
+    			<p/>
+
+
+    			 <h5 align = "center">
+               $\begin{align*}
+    \text{prec}_{i} &= \alpha + \sum_{j = 1}^{365}\beta_{j}\text{temp}_{ij} + \epsilon_{i}
+\end{align*}$
+
+            </h5>
+
+            <p>
+            	This is a basic multivariate regression model where we are putting a weight $\beta_{j}$ on every day of the year. You can think of this as the effect on total precipitation. To clarify, the value of $\beta$ represents the average effect of temperature on precipitation on some given day $j$ of the year. Heading into the summer days, the values of $\beta$ would be lower because there is usually less rain in that season.<br/><br/>
+
+            	We are interested in figuring out how this works in the functional case i.e. what is the functional counterpart to the above model. This is known as a functional linear model:
+
+            	<p/>
+
+            	    			 <h5 align = "center">
+               $\begin{align*}
+    \text{prec}_{i} &= \alpha + \int_{1}^{365}\beta(t) \text{temp}_{i}(t)dt + \epsilon_{i}
+\end{align*}$
+
+            </h5>
+
+
+            <p>
+
+            	It's actually not all that different than the original model other than we have infinite $\beta$. Remember back to when I talked about being able to figure out the height of the object at any time point? Well, we can do that because we know the relationship. In the multivariate regression model, we only know the relationship ($\beta$) for the day but not at any high resolution: we don't know the effect say at noon on June 12$^th$! However, in the functional model above, we will know that effect because $beta$ isn't just individual values now - it's a curve as well! <br/> <br/>
+
+            	Instead of getting into the math of what is happening here, it might be easier to get an intuitive understanding through some visualization. Let's skip over how we find the optimal $\beta(t)$ but just know that there are some good ways of finding it - namely smoothing with some penalty (perhaps I will write an article on this too). An example of what $\beta(t)$ might look like is:
+
+            	<p/>
 
 				<center><iframe src="images/fda_article/beta.html" style="height:400px;width:700px;border:none;"></iframe></center>
 
+
+				            <p>
+
+            	This is nice and all but take a look back at the functional regression equation - there are two things at play! There is the functional observation $x(t)$ and the functional coefficient $\beta(t)$. The observation $x(t)$ are those curves we been building thus far (e.g. the ones for the cities above) and $\beta(t)$ we find using some method - we are interested in the product of these two as that is giving us the the combined effect of the value of temperature for a given city $i$, and the corresponding weight at those temperatures. Just like in the usual regression case $\beta(t)$ is the same for all the observations since it's the average effect. We are going to be able to get predictions by using this estimated $\beta(t)$ multipled by some new functional observation, $x_{m}(t)$. In the following plot, we can observe these two curves (blue and black) along with the combined effect. <br/> <br/>
+
+
+            	<p/>
+
     			<center><iframe src="images/fda_article/lm_all.html" style="height:400px;width:700px;border:none;"></iframe></center>
 
+    			<p>
+
+    				So, to really hammer this home, let's look back at the functional regresion equation:
+
+    			</p>
+
+    			            	    			 <h5 align = "center">
+               $\begin{align*}
+    \text{E(prec}_{i}|x_{i}(s)) &= \hat{\alpha} + \int_{1}^{365}\underbrace{\underbrace{\hat{\beta(t)}}_{\text{Blue Curve}}\hspace{0.5em} \underbrace{\text{temp}_{i}(t)}_{\text{Black Curve}}}_{\text{Green Curve}}dt
+\end{align*} $
+
+            </h5>
+
+            <p>
+
+            	And finally, our prediction for precipitation will be the shaded green area. Here's some examples of what those look like with different functional observations (black curves):
+
+            </p>
+
+
+    			<center><iframe src="images/fda_article/fig_sub.html" style="height:400px;width:700px;border:none;"></iframe></center>
+
+
                 <br/>
+
+                <p>
+
+                	Those areas are:
+
+                </p>
+
+
+    			            	    			 <h5 align = "center">
+            	    			 <h5 align = "center">
+               $\begin{align*}
+    \text{E(prec}_{i}|x_{i}(s)) &= \hat{\alpha} + \underbrace{\int_{1}^{365}\hat{\beta(t)} \text{temp}_{i}(t)dt}_{\text{Sum of the green shaded area}}
+\end{align*}$
+
+            </h5>
+
+
+            </h5>
+
+
+            <p>
+
+            	So, there we go! We have gone from having raw data, to learning about basis expansions, building functional observations, and then making predictions using those observations. We saw that in this example, that we performed a perfectly acceptable regression in the functional case that would not have been allowed in the usual multivariate case. 
+
+            </p>
 
 
     			    		<p style="font-size:30px;color:blue">
     			Final Thoughts
     			<p/>
+
+
+    			<p>
+
+    				While this will get you out the gates, FDA is a fairly vast field - there are differential equation models, fPCA methods, curve prediction, etc. What you have here is enough of an introduction to get a gist of what is possible using this approach. We get access to a new arsenal to play with when we are trying to solve some sort of problem. Check out my article on functional neural networks - a more sophisticated manner of solving this same problem. 
+
+    			</p>
 
 
         </article>
