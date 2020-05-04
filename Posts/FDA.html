@@ -220,7 +220,7 @@ MathJax.Hub.Config({
             <p>Approximating these true equations is at the essence of functional data analysis (FDA). We first make an assumption that there exists some true underlying function from which the data arises -- in our example, this is the equation: $h(t) = 16t^{2} + vt + h_{i}$ where $h(t)$ is the height at time $t$, $v$ is the initial velocity (how hard you threw the ball), and $h_{i}$ is the initial height (e.g. were you standing on top of a building?). Here, we know this function, but often we don't -- it's why we use statistics. If we could explain behaviours using hard science, there would much less a need for us to collect and analyze data. Despite not knowing the true function, we still have the option to approximate the underlying function by some other approach. <br/><br/>
 
 
-            So here's the bottomline: we want to work with the curves rather than the discrete points -- they provide us with much more information. For example, remember when I asked for the position at 1.232847 seconds? You couldn't answer that then, but you could now by using the equation given above. Working with curves will also give us access to derivatives -- this is how much the data is changing at any given point in time. Here, this refers to the velocity! Accessing additional information such as this becomes much easier when we use the paradigm of data as curves rather than discrete points. In this article, I will provide an intuitive understanding of how to make these curves from discrete data and an example of modelling using those curves. 
+            So here's the bottomline: we want to work with the curves rather than the discrete points -- they provide us with much more information. For example, remember when I asked for the position at 1.232847 seconds? You couldn't answer that then, but you could now by using the equation given above. Working with curves will also give us access to derivatives -- this is how much the data is changing at any given point in time. Here, this refers to the velocity! Accessing additional information such as this becomes much easier when we use the paradigm of data as curves rather than discrete points. In this article, I will provide an intuitive understanding of how to make these curves from discrete data and an example of modelling using those curves. <br/><br/>
             </p>
 
                 		<p style="font-size:30px;color:blue">
@@ -276,7 +276,7 @@ f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(
 
             	Okay, so we know how the basis expansion behaves when we add additional terms, but what about the values of $c$? These coefficients are what we are going to use to get very specific curves -- picking the correct combination of these is what is going to allow for those good approximations! This is where the raw data comes in -- using the information from that data, we can deduce what the values of $c$ should be. In this process, we want to make sure we don't overfit (remember, the data we collect is subject to random error); attempting to not overfit is not an exact science. I won't go into the weeds with this but just know that there are good ways to figure out the optimal values of $c$ based on the data you've collected. <br/><br/>
 
-            	<p/>
+            	<p/> 
 
     		<p style="font-size:30px;color:blue">
     			Creating Functional Data
@@ -301,7 +301,7 @@ f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(
     		<p>
     			In the image above, the color codes for the three subjects. We can see that the raw data differs significantly between the three and this is reflected in the functional observations on the right; all three of them have the same basis functions (in this case, a fourier basis), but have different coefficient values $c$ which alters the curves significantly. Also note that the curves are quite wiggly -- this is because I picked a fairly large $n$ for these curves; if I picked a fewer number of basis functions, the curves would be smoother. <br/><br/>
 
-    			And that's about it -- we now have functional observations. We can take derivatives of these observations easily by taking the derivatives of the basis functions $\phi(t)$. Note however, that this isn't the only way to get functional observations -- an alternative approach is to use functional principal components. I will omit the details because I plan on writing a detailed article on how those work, geometrically!<br/>
+    			And that's about it -- we now have functional observations. We can take derivatives of these observations easily by taking the derivatives of the basis functions $\phi(t)$. Note however, that this isn't the only way to get functional observations -- an alternative approach is to use functional principal components. I will omit the details because I plan on writing a detailed article on how those work, geometrically!<br/><br/>
 
     			<p/>
 
@@ -419,7 +419,7 @@ f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(
 
             <p>
 
-            	So, there we go! We have gone from having raw data, to learning about basis expansions, building functional observations, and then making predictions using those observations.
+            	So, there we go! We have gone from having raw data, to learning about basis expansions, building functional observations, and then making predictions using those observations.<br/><br/>
 
             </p>
 
