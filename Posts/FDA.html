@@ -356,7 +356,7 @@ f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(
 
             <p>
 
-            	It's actually not all that different from the original model other than we have infinite $\beta$ -- it's a function defined at every point, $t$. Remember back to when I discussed being able to figure out the height of the launched object at any time point? We can do that because we know the relationship. In the multivariate regression model, we only know the relationship ($\beta_{j}$) for the day but not at any high resolution: we can only know the effect on say June 12$^{th}$ overall but not the effect at 12:34 am on June 12$^th$! However, in the functional model above, we will know that effect because $beta$ isn't just individual values now - it's a curve as well! <br/> <br/>
+            	It's actually not all that different from the original model other than we have infinite $\beta$ -- it's a function defined at every point, $t$. Remember back to when I discussed being able to figure out the height of the launched object at any time point? We can do that because we know the relationship. In the multivariate regression model, we only know the relationship ($\beta_{j}$) for the day but not at any high resolution: we can only know the effect on say June 12$^{th}$ overall but not the effect at 12:34 am on June 12$^{th}$! However, in the functional model above, we will know that effect because $\beta$ isn't just individual values now - it's a curve as well! <br/> <br/>
 
             	Instead of getting into the math of what is happening here, it might be easier to get an intuitive understanding through some visualization. Let's skip over how we find the optimal $\beta(t)$ but just know that there are some good ways of finding it - namely smoothing with some penalty (perhaps I will write an article on this too). An example of what $\beta(t)$ might look like is:
 
@@ -431,7 +431,7 @@ f(t) &= \sum_{i = 1}^{n} c_{i}\phi_{i}(t)\\ &= c_{1}\phi_{1}(t) + c_{2}\phi_{2}(
 
     			<p>
 
-    				While this will get you out the gates, FDA is a fairly vast field -- there are differential equation models, fPCA methods, curve prediction approaches, etc. What you have here is enough of an introduction to get a gist of what is possible using this approach. We get access to an arsenal problem-solving tools that allows us to approach problems in a manner that wouldn't otherwise be possible! If you're interested in other problems that could be solved using these methods, check out my article on functional neural networks -- a generalization of neural network inputs through a marriage of deep learning and FDA.
+    				While this will get you out the gates, FDA is a fairly vast field -- there are differential equation models, fPCA methods, curve prediction approaches, etc. What you have here is enough of an introduction to get a gist of what is possible using this approach. We get access to an arsenal of problem-solving tools that allows us to approach problems in a manner that wouldn't otherwise be possible! If you're interested in other problems that could be solved using these methods, check out my article on functional neural networks -- a generalization of neural network inputs through a marriage of deep learning and FDA.
 
     			</p>
 
